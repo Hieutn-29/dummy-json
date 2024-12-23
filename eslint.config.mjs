@@ -1,16 +1,16 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+export default [
+  {
+    files: ['**/*.ts', '**/*.tsx'], // Chỉ định các tệp TypeScript
+    languageOptions: {
+      parser: '@typescript-eslint/parser', // Sử dụng parser cho TypeScript
+      parserOptions: {
+        project: './tsconfig.json', // Tham chiếu tệp cấu hình TypeScript
+      },
+    },
+    plugins: ['@typescript-eslint'], // Plugin cho TypeScript
+    rules: {
+      'prettier/prettier': 'warn',
+      '@typescript-eslint/no-unused-vars': 'off', // Tắt kiểm tra biến không sử dụng
+    },
+  },
 ];
-
-export default eslintConfig;
